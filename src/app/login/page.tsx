@@ -1,4 +1,4 @@
-"use client"
+"use client" 
 import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import React, { FormEvent, useState } from 'react'
@@ -12,22 +12,22 @@ const RegisterPage = () => {
     const handleSubmit =async (e:FormEvent<HTMLFormElement>)=>{
      e.preventDefault()
      
-     const result = await signIn("credentials",{
+     const result = await signIn("credentials", {
         email,
         password,
-        redirect:false,
-     })
-
+        redirect: false,
+     });
+    
+     
+     
      if(result?.error){
-        console.log({result.error});
-
+        console.log(result.error)
      }
     else{
-        router.push("/")
+        router.push("/")    
     }
-
     }
-    
+      
   return (
     <div>
     <h1>Register</h1>

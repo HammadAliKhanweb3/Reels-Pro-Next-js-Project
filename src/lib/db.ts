@@ -1,19 +1,19 @@
 import mongoose from "mongoose";
 
 declare global {
-  var mongoose: {
-    conn: typeof mongoose | null;
-    promise: Promise<typeof mongoose> | null;
-  };
-}
-
+    var mongoose: {
+      conn: typeof mongoose | null;
+      promise: Promise<typeof mongoose> | null;
+    };
+  }
 const MONGODB_URI = process.env.MONGODB_URI!;
+
 
 if(!MONGODB_URI){
     throw new Error("Please provide MONGODB_URI in the environment variables")
 }
 
-let cached = global.mongoose;
+let cached  = global.mongoose;
 
 if(!cached){
     cached =  global.mongoose ={conn:null, promise: null}
@@ -22,7 +22,8 @@ if(!cached){
 
 
 export async function ConnectToDb () {
-
+    
+    
     if(cached.conn){
         return cached.conn
     }
@@ -33,7 +34,8 @@ export async function ConnectToDb () {
             maxPoolSize:10
         }
 
-        mongoose.connect(MONGODB_URI,opts).then(()=> mongoose.connection)
+         await mongoose.connect(MONGODB_URI,opts).then(()=> mongoose.connection)
+        
     }
 
 

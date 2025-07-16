@@ -3,12 +3,19 @@ import { NextAuthOptions} from "next-auth";
 import  CredentialsProvider  from "next-auth/providers/credentials";
 import { ConnectToDb } from "./db";
 import bcrypt from "bcryptjs";
+import GoogleProvider from "next-auth/providers/google";
 
 
 
 export const authOptions:NextAuthOptions = {
       providers:
       [
+
+        GoogleProvider({
+          clientId: process.env.GOOGLE_CLIENT_ID!,
+          clientSecret: process.env.GOOGLE_CLIENT_SECRET! 
+        }),
+
       CredentialsProvider({
        
         name: 'Credentials',
@@ -31,7 +38,7 @@ export const authOptions:NextAuthOptions = {
                      throw new Error("No user found")
                  }
 
-                 const isValid = await bcrypt.compare(credentials?.password,user.password)
+                const isValid = await bcrypt.compare(credentials?.password,user.password)
 
                  if(!isValid){
                      throw new Error("Invalid credentials")
@@ -56,6 +63,14 @@ export const authOptions:NextAuthOptions = {
     ],
 
     callbacks:{
+
+      async signIn({ account, profile }) {
+        if (account.provider === "google") {
+          return profile.email_verified && profile.email.endsWith("@example.com")
+        }
+        return true // Do different verification for other providers that don't have `email_verified`
+      },
+      
         async jwt({ token, user }) {
             if(user){
                 token.id = user.id
@@ -70,13 +85,18 @@ export const authOptions:NextAuthOptions = {
               return session
             },
     },
+
+
     pages:{
         signIn: '/login',
         error: '/login', 
     },
+
+
     session:{
         strategy: "jwt",
         maxAge: 30 * 24 * 60 * 60
     },
+
     secret:process.env.NEXTAUTH_SECRET,
 }

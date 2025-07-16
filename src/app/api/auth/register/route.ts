@@ -2,24 +2,21 @@ import User from "@/model/Users";
 import { NextRequest, NextResponse } from "next/server";
 import { ConnectToDb } from "@/lib/db";
 
-
-
-
-
-async function POST(request:NextRequest){
-
+export async function POST(request:NextRequest){
     
     try {
 
     const {email,password} = await request.json()
-
+ 
+   
 
     if(!email || !password){
         return NextResponse.json({error:"Invalid credentials"},{status:400})
     }
         await ConnectToDb()
         
-        const existingUser = await User.findOne({email:email})
+        
+        const existingUser = await User.findOne({email})
     
         if(existingUser){
             return NextResponse.json({error:"User already existed"},{status:400})
