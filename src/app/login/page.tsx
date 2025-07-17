@@ -46,7 +46,7 @@ const RegisterPage = () => {
 
      </form>
      <div>
-       Don't have an Account?
+       Do not have an Account?
        <button onClick={()=>router.push("/register")}>Register</button>
      </div>
 
