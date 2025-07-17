@@ -1,13 +1,9 @@
 "use client" 
 import {
-    ImageKitAbortError,
-    ImageKitInvalidRequestError,
-    ImageKitServerError,
-    ImageKitUploadNetworkError,
     upload,
 } from "@imagekit/next";
 
-import { ChangeEvent, useRef, useState } from "react";
+import { ChangeEvent, useState } from "react";
 
 type FileInputProps={
     onSuccess:(res:any) => void
@@ -76,6 +72,7 @@ const FileUpload =({onSuccess,onProgress,fileType}:FileInputProps)=>{
 
             <input type="file"  onChange={handleUpload}/>
             {uploading && <span>Loading....</span>}
+            {error && <span className="text-red-500">{error}</span>}
 
            
         </>
