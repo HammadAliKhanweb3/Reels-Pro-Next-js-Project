@@ -3,11 +3,11 @@ import { IVideos } from "@/model/Videos";
 
 export type vidoeFormData = Omit<IVideos, "_id">;
 
-type FetchOptions={
-method?:"GET" | "POST" | "PUT" | "DELETE",
-body?:any,
-headers?:Record<string,string>
-}
+type FetchOptions = {
+  method?: "GET" | "POST" | "PUT" | "DELETE";
+  body?: Record<string, unknown> | FormData | string | null;
+  headers?: Record<string, string>;
+};
 
 
 

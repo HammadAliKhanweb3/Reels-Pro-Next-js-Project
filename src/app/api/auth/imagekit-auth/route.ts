@@ -13,12 +13,10 @@ try {
         })
     
         return Response.json({authenticationParameters,publicKey: process.env.NEXT_PUBLIC_KEY})
-} catch (error) 
-{
-    return Response.json( 
-        
+} catch (error) {
+    console.error('ImageKit auth error:', error);
+    return Response.json(         
         {error:"Imagekit Authentication Error"},
-        {status:500},)
-
+        {status:500})
 }
 }

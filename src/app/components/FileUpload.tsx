@@ -5,11 +5,22 @@ import {
 
 import { ChangeEvent, useState } from "react";
 
-type FileInputProps={
-    onSuccess:(res:any) => void
-    onProgress:(res:number) => void
-    fileType?:"image" | "video";
+interface FileUploadResponse {
+    fileId?: string;
+    name?: string;
+    size?: number;
+    filePath?: string;
+    url?: string;
+    fileType: string;
+    height?: number;
+    width?: number;
+    thumbnailUrl?: string;
+}
 
+type FileInputProps={
+    onSuccess:(res: FileUploadResponse) => void;
+    onProgress:(res:number) => void;
+    fileType?:"image" | "video";
 }
 const FileUpload =({onSuccess,onProgress,fileType}:FileInputProps)=>{
     const [uploading,setUploading] = useState(false)
@@ -58,7 +69,7 @@ const FileUpload =({onSuccess,onProgress,fileType}:FileInputProps)=>{
             
          }
      })
-     onSuccess(res)
+     onSuccess(res as FileUploadResponse)
    } catch (error) {
     console.log("upload failed",error);
     

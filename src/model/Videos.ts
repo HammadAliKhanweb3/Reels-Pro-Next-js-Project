@@ -38,7 +38,7 @@ export interface IVideos {
     }
  },{timestamps:true})
 
- const Video = models.video || model<IVideos>("Video",videoSchema)
+ const Video= models?.Video || model<IVideos>("Video",videoSchema)
  
  
- export default Video 
+ export default Video

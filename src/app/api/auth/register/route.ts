@@ -11,7 +11,7 @@ export async function POST(request:NextRequest){
    
 
     if(!email || !password){
-        return NextResponse.json({error:"Invalid credentials"},{status:400})
+        return NextResponse.json({error:"Invalid credentials"},{status:401})
     }
         await ConnectToDb()
         

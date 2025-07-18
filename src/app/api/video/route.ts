@@ -1,9 +1,11 @@
 import { ConnectToDb } from "@/lib/db";
-import { Video } from "@imagekit/next";
 import { NextRequest, NextResponse } from "next/server";
-import { IVideos } from "@/model/Videos";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
+import VideoModel,{IVideos} from "@/model/Videos";
+
+
+
 
 export async function GET() {
 
@@ -11,7 +13,7 @@ export async function GET() {
          
         await ConnectToDb()
 
-        const videos = await Video.find({}).sort({createdAt:-1}).lean()
+        const videos = await VideoModel.find({}).sort({createdAt:-1}).lean()
         
         if(!videos || videos.length==0){
            return NextResponse.json(
@@ -35,7 +37,7 @@ export async function GET() {
     
 }
 
-async function POST(req:NextRequest){
+export async function POST(req:NextRequest){
    try {
     
      const session = getServerSession(authOptions)
@@ -71,11 +73,12 @@ async function POST(req:NextRequest){
  
      }
  
-     const video =await Video.create(videoData);
+     const video =await VideoModel.create(videoData);
  
  
      return NextResponse.json({video},{status:200})
    } catch (error) {
+   console.error('Error uploading video:', error);
     return NextResponse.json(
         {error:"Error in uploading Video"},
         {status:500}

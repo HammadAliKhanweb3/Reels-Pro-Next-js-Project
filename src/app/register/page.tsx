@@ -58,7 +58,7 @@ const RegisterForm=()=> {
       confirmPassword:""
     }
   })
-  const {setError,handleSubmit,formState:{errors}} = form
+  const {setError,handleSubmit,} = form
 
 
   const onSubmit = async (data: FormFields) => {
@@ -88,10 +88,12 @@ const RegisterForm=()=> {
       
       router.push("/login");
     
-   } catch (error:any) {
+   } catch (error) {
+
+     const errorMessage = error instanceof Error? error.message :"unexpected error occured.";
       setError("root.serverError", {
         type: "manual",
-        message: error || "An unexpected error occurred. Please try again."
+        message: errorMessage
       });
    }
   };
