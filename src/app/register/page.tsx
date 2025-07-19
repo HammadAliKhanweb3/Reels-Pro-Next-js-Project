@@ -159,7 +159,7 @@ const RegisterForm=()=> {
         <Button className="cursor-pointer" type="submit">Submit</Button>
 
 <h2 className="text-center">OR</h2>
-<Button className="cursor-pointer" type="button"  onClick={()=> signIn("google")}
+<Button className="cursor-pointer" type="button"  onClick={()=> signIn("google",{ callbackUrl: "/" })}
 >Signup with google <span><FcGoogle /></span></Button>
            </div>
       </form>
