@@ -154,7 +154,7 @@ const RegisterForm=()=> {
           )}
         />
 
-           <div className="flex flex-col space-y-4">
+           <div className="flex flex-col space-y-5">
 
         <Button className="cursor-pointer" type="submit">Submit</Button>
 
